@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: Namespace
+metadapiVersion: v1
+kind: Service
+metadata:
+  name: osdk-frontend
+  namespace: osdk
+spec: name: osdk
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: osdk-backend
+  namespace: osdk
+  labels:
+    app: osdk-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: osdk-backend
+  template:
+    metadata:
+      labels:
+        app: osdk-backend
+    spec:
+      containers:
+      - name: osdk-backend
+        image: <!--backend image-->
+        imagePullPolicy: Always
+        env:
+        - name: OPERATOR_SDK_RUNNER_NAME
+          value: "osdk-runner"
+        - name: OPERATOR_SDK_RUNNER_NAMESPACE
+          value: "osdk"
+        - name: OPERATOR_SDK_RUNNER_IMAGE
+          value: <!--runner image-->
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: osdk-backend
+  namespace: osdk
+spec:
+  selector:
+    app: osdk-backend
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: osdk-frontend
+  namespace: osdk
+  labels:
+    app: osdk-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: osdk-frontend
+  template:
+    metadata:
+      labels:
+        app: osdk-frontend
+    spec:
+      containers:
+      - name: osdk-frontend
+        image: <!--frontend image-->
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: osdk-frontend
+spec:
+  selector:
+    app: osdk-frontend
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
