@@ -3,29 +3,8 @@ https://github.com/user-attachments/assets/831baa13-5808-4d17-9250-f8c03f367472
 
 A web tool for scaffolding Kubernetes operators using the Operator SDK. Create, configure, and generate Kubernetes operators with custom resource definitions (CRDs), controllers, and RBAC permissions.
 
-1. Click "Configure" in the Webhook Configuration section
-2. Add admission webhooks (mutating, validating, or conversion)
-3. Configure webhook settings:
-   - **Type**: Choose between mutating, validating, or conversion webhooks (path auto-updates)
-   - **Path**: Custom webhook endpoint path (automatically generated based on type, version, and kind)
-   - **Operations**: Select which operations trigger the webhook (CREATE, UPDATE, DELETE)
-   - **Resources**: Specify which resources the webhook should watch (defaults to current CRD)
-   - **Failure Policy**: Choose whether to fail or ignore webhook errors
-   - **Side Effects**: Specify webhook side effects (None, NoneOnDryRun, Some, Unknown)
-   - **Admission Review Versions**: Select supported versions (v1, v1beta1)
-
-### 6. Advanced Options
-- Enable status subresource for CRDs that need status updates
-- Toggle controller generation per CRD
-- Review the JSON configuration in the right panel
-
-### 7. Generate Operatorrs using the Operator SDK. Create, configure, and generate Kubernetes operators with custom resource definitions (CRDs), controllers, and RBAC permissions.
-
 ![Go Version](https://img.shields.io/badge/go-1.19+-blue.svg)
 ![Node Version](https://img.shields.io/badge/node-18+-green.svg)
-
-
-![OSDK-Web Screenshot](./screenshot.jpg)
 
 ## 🚀 Quick Start
 
