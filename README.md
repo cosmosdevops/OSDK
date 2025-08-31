@@ -1,9 +1,29 @@
 # OSDK-Web: Kubernetes Operator Builder
 
-A web tool for building Kubernetes operators using the Operator SDK. Create, configure, and generate Kubernetes operators with custom resource definitions (CRDs), controllers, and RBAC permissions.
+A web tool for scaffolding K### 5. Configure Webhooks (Optional)
+1. Click "Configure" in the Webhook Configuration section
+2. Add admission webhooks (mutating, validating, or conversion)
+3. Configure webhook settings:
+   - **Type**: Choose between mutating, validating, or conversion webhooks (path auto-updates)
+   - **Path**: Custom webhook endpoint path (automatically generated based on type, version, and kind)
+   - **Operations**: Select which operations trigger the webhook (CREATE, UPDATE, DELETE)
+   - **Resources**: Specify which resources the webhook should watch (defaults to current CRD)
+   - **Failure Policy**: Choose whether to fail or ignore webhook errors
+   - **Side Effects**: Specify webhook side effects (None, NoneOnDryRun, Some, Unknown)
+   - **Admission Review Versions**: Select supported versions (v1, v1beta1)
+
+### 6. Advanced Options
+- Enable status subresource for CRDs that need status updates
+- Toggle controller generation per CRD
+- Review the JSON configuration in the right panel
+
+### 7. Generate Operatorrs using the Operator SDK. Create, configure, and generate Kubernetes operators with custom resource definitions (CRDs), controllers, and RBAC permissions.
 
 ![Go Version](https://img.shields.io/badge/go-1.19+-blue.svg)
 ![Node Version](https://img.shields.io/badge/node-18+-green.svg)
+
+
+![OSDK-Web Screenshot](./screenshot.jpg)
 
 ## 🚀 Quick Start
 
@@ -64,12 +84,23 @@ docker build -t osdk-runner ./operator-sdk-runner
 2. Add permissions using presets or custom definitions
 3. Specify API groups, resources, and verbs
 
-### 5. Advanced Options
+### 5. Configure Webhooks (Optional)
+1. Click "Configure" in the Webhook Configuration section
+2. Add admission webhooks (mutating, validating, or conversion)
+3. Configure webhook settings:
+   - **Type**: Choose between mutating, validating, or conversion webhooks
+   - **Path**: Custom webhook endpoint path (optional)
+   - **Operations**: Select which operations trigger the webhook (CREATE, UPDATE, DELETE)
+   - **Failure Policy**: Choose whether to fail or ignore webhook errors
+   - **Side Effects**: Specify webhook side effects (None, NoneOnDryRun, Some, Unknown)
+   - **Admission Review Versions**: Select supported versions (v1, v1beta1)
+
+### 6. Advanced Options
 - Enable status subresource for CRDs that need status updates
 - Toggle controller generation per CRD
 - Review the JSON configuration in the right panel
 
-### 6. Generate Operator
+### 7. Generate Operator
 1. Click "Generate" to create your operator
 3. Download the generated ZIP file
 4. Extract your operator
@@ -103,6 +134,18 @@ docker build -t osdk-runner ./operator-sdk-runner
         }
       ]
     }
+  ],
+  "webhooks": [
+    {
+      "type": "mutating",
+      "enabled": true,
+      "path": "/mutate-v1-myapp",
+      "operations": ["CREATE", "UPDATE"],
+      "admissionReviewVersions": ["v1"],
+      "failurePolicy": "Fail",
+      "sideEffects": "None",
+      "matchPolicy": "Exact"
+    }
   ]
 }
 ```
@@ -112,7 +155,7 @@ docker build -t osdk-runner ./operator-sdk-runner
 - [Operator SDK](https://sdk.operatorframework.io/) - Kubernetes operator development framework
 - [Kubebuilder](https://kubebuilder.io/) - Framework for building Kubernetes APIs
 - [Monaco Editor](https://microsoft.github.io/monaco-editor/) - Code editor component
-- [Web Awesome](https://webawesom.es/) - UI component library
+- [Web Awesome](https://webawesome.com/) - UI component library
 - [Gin](https://gin-gonic.com/) - Go web framework
 
 ---

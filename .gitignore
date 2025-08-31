@@ -204,7 +204,6 @@ docker-compose.override.yml
 docker-compose.local.yml
 
 # Ignore operator-sdk generated files during testing
-operator-*/
 sdk-*/
 
 # Ignore any local testing directories

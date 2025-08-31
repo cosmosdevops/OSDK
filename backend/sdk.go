@@ -66,8 +66,8 @@ func runOperatorSDKInKubernetes(data OperatorData) (string, error) {
 	}
 
 	// Wait for the pod to be ready with a timeout
-	const podWaitTimeout = 60 // seconds
-	const pollInterval = 2    // seconds
+	const podWaitTimeout = 120 // seconds
+	const pollInterval = 2     // seconds
 	startTime := time.Now()
 	var runnerPod v1.Pod
 	for {

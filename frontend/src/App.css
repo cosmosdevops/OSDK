@@ -55,7 +55,7 @@ label {
   font-weight: bold;
 }
 
-input, select, button {
+input, button {
   padding: 10px;
   margin: 5px 0;
   border: 1px solid #ccc;

@@ -20,7 +20,7 @@ type RBACPermission struct {
 
 type WebhookConfig struct {
 	Type                    string   `json:"type"`                              // "mutating", "validating", or "conversion"
-	AdmissionReviewVersions []string `json:"admissionReviewVersions,omitempty"` // Only "v1" supported
+	AdmissionReviewVersions []string `json:"admissionReviewVersions,omitempty"` // v1, v1beta1
 	FailurePolicy           string   `json:"failurePolicy,omitempty"`           // "Fail" or "Ignore"
 	SideEffects             string   `json:"sideEffects,omitempty"`             // "None", "NoneOnDryRun", "Some", "Unknown"
 	MatchPolicy             string   `json:"matchPolicy,omitempty"`             // "Exact" or "Equivalent"
@@ -35,7 +35,7 @@ type CRD struct {
 	Version    string           `json:"version" validate:"required,alphanum|alphanumunicode"`
 	Kind       string           `json:"kind" validate:"required,alphanum|alphanumunicode"`
 	Plural     string           `json:"plural" validate:"omitempty,alphanum|alphanumunicode"`
-	Controller bool             `json:"controller"`
+	Controller bool             `json:"controller" validate:"required"`
 	Status     bool             `json:"status"`
 	RBAC       []RBACPermission `json:"rbac"`
 	Properties []Property       `json:"properties" validate:"dive,required"`
@@ -48,8 +48,4 @@ type OperatorData struct {
 	ProjectName string   `json:"projectName" validate:"required,alphanum|alphanumunicode"`
 	Namespaces  []string `json:"namespaces"`
 	CRDs        []CRD    `json:"crds" validate:"required,dive,required"`
-}
-
-func UpdateWebhookConfig(config *WebhookConfig) {
-	config.AdmissionReviewVersions = []string{"v1"} // Ensure only v1 is supported
 }

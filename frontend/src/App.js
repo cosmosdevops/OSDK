@@ -159,9 +159,10 @@ function App() {
       status: false,
       rbac: [],
       properties: [],
+      webhooks: [],
     };
   }
-
+  //remove this 
   function migrateRbacStructure(crd) {
     if (!crd.rbac) {
       return { ...crd, rbac: [] };
@@ -314,6 +315,37 @@ function App() {
                       const updatedRbac = currentRbac.filter((_, i) => i !== index);
                       updateCurrentCRD('rbac', updatedRbac);
                     }}
+                    webhooks={Array.isArray(currentCRD.webhooks) ? currentCRD.webhooks : []}
+                    setWebhooks={(value) => updateCurrentCRD('webhooks', value)}
+                    addWebhook={() => {
+                      const currentWebhooks = Array.isArray(currentCRD.webhooks) ? currentCRD.webhooks : [];
+                      // Default to watching the current CRD's resources
+                      const defaultResources = currentCRD.plural || `${currentCRD.kind.toLowerCase()}s`;
+                      const webhookType = 'mutating';
+                      const defaultPath = `/mutate-${currentCRD.version.toLowerCase()}-${currentCRD.kind.toLowerCase()}`;
+                      
+                      const updatedWebhooks = [...currentWebhooks, { 
+                        type: webhookType, 
+                        failurePolicy: 'Fail',
+                        sideEffects: 'None',
+                        matchPolicy: 'Exact',
+                        path: defaultPath,
+                        operations: [],
+                        resources: [defaultResources]
+                      }];
+                      updateCurrentCRD('webhooks', updatedWebhooks);
+                    }}
+                    updateWebhook={(index, key, value) => {
+                      const currentWebhooks = Array.isArray(currentCRD.webhooks) ? currentCRD.webhooks : [];
+                      const updatedWebhooks = [...currentWebhooks];
+                      updatedWebhooks[index][key] = value;
+                      updateCurrentCRD('webhooks', updatedWebhooks);
+                    }}
+                    removeWebhook={(index) => {
+                      const currentWebhooks = Array.isArray(currentCRD.webhooks) ? currentCRD.webhooks : [];
+                      const updatedWebhooks = currentWebhooks.filter((_, i) => i !== index);
+                      updateCurrentCRD('webhooks', updatedWebhooks);
+                    }}
                     addNewCRD={addNewCRD}
                     switchCRD={switchCRD}
                     crdList={crds}
@@ -359,7 +391,6 @@ function App() {
                     setDomain(parsed.domain || '');
                     setRepo(parsed.repo || '');
                     setProjectName(parsed.projectName || '');
-                    // Accept both array and string for backward compatibility
                     if (Array.isArray(parsed.namespaces)) {
                       setNamespaced(parsed.namespaces.length > 0);
                       setNamespaces(parsed.namespaces.join(','));
@@ -372,6 +403,10 @@ function App() {
                     }
                     const migratedCrds = (parsed.crds || []).map(migrateRbacStructure);
                     setCrds(migratedCrds);
+                    // Ensure selector shows first CRD after full load
+                    if (migratedCrds.length > 0) {
+                      setCurrentCRDIndex(0);
+                    }
                   } catch (error) {
                     // Do not update state if invalid JSON
                   }
