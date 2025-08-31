@@ -1,4 +1,5 @@
 # OSDK-Web: Kubernetes Operator Builder
+https://github.com/user-attachments/assets/831baa13-5808-4d17-9250-f8c03f367472
 
 A web tool for scaffolding K### 5. Configure Webhooks (Optional)
 1. Click "Configure" in the Webhook Configuration section
