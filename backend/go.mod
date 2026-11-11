@@ -4,7 +4,7 @@ go 1.24.0
 
 toolchain go1.24.4
 
-require k8s.io/client-go v0.33.3
+require k8s.io/client-go v0.37.2
 
 require (
 	github.com/bytedance/sonic v1.13.3 // indirect
