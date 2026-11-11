@@ -1,4 +1,4 @@
-FROM golang:1.24-bullseye AS builder
+FROM golang:1.26-bookworm AS builder
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY . .
 
 RUN go build -o backend .
 
-FROM golang:1.24-bullseye
+FROM golang:1.26-bookworm
 
 WORKDIR /app
 

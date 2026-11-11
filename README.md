@@ -3,14 +3,14 @@ https://github.com/user-attachments/assets/831baa13-5808-4d17-9250-f8c03f367472
 
 A web tool for scaffolding Kubernetes operators using the Operator SDK. Create, configure, and generate Kubernetes operators with custom resource definitions (CRDs), controllers, and RBAC permissions.
 
-![Go Version](https://img.shields.io/badge/go-1.19+-blue.svg)
+![Go Version](https://img.shields.io/badge/go-1.26+-blue.svg)
 ![Node Version](https://img.shields.io/badge/node-18+-green.svg)
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Docker
-- Go 1.19+ (for local development)
+- Go 1.26+ (for local development)
 - Node.js 18+ (for local development)
 - Operator-SDK CLI tool
 
