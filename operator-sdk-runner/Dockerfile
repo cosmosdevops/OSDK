@@ -1,5 +1,5 @@
 # Build stage
-FROM golang:1.24-bullseye AS builder
+FROM golang:1.26-bookworm AS builder
 
 RUN apt-get update && apt-get install -y \
     curl \
@@ -21,7 +21,7 @@ RUN go get -u github.com/gin-gonic/gin \
 RUN go build -o server .
 
 # Runtime
-FROM golang:1.24-bullseye
+FROM golang:1.26-bookworm
 
 WORKDIR /app
 
